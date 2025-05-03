@@ -31,23 +31,109 @@ This project includes two Python scripts for Wi-Fi network security testing:
 
 ### 1️⃣ Deauthentication Tool — `wifideauth.py`
 
-#### ✅ Basic Syntax
+### ✅ Basic Syntax
 ```bash
 sudo python wifideauth.py -c <channel> -a <target>
-Option | Description
--v | Enable verbose mode
--h, --help | Show help message
--c, --channel | Set the Wi-Fi channel to scan/attack
--a, --attack | Set to * for all clients or specify a target MAC address
-📌 Examples
-Scan for clients on channel 6:
+```
+
+| Option            | Description                                                        |
+|-------------------|--------------------------------------------------------------------|
+| `-v`              | Enable verbose mode                                                |
+| `-h`, `--help`    | Show help message                                                  |
+| `-c`, `--channel` | Set the Wi-Fi channel to scan/attack                               |
+| `-a`, `--attack`  | Set to `*` for all clients or specify a target MAC address         |
+
+### 📌 Examples
+
+- **Scan for clients on channel 6:**
+```bash
 sudo python wifideauth.py -c 6
-Deauth all clients on channel 8:
+```
+
+- **Deauth all clients on channel 8:**
+```bash
 sudo python wifideauth.py -c 8 -a *
-Deauth a specific client:
+```
+
+- **Deauth a specific client:**
+```bash
 sudo python wifideauth.py -c 11 -a 2C:D0:66:A3:6E:39
-# 2️⃣ Deauthentication Detection — detection.py
-Detection logic is also included in wifideauth.py.
-#▶️ Run the Script
+```
+
+---
+
+## 2️⃣ Deauthentication Detection — detection.py
+
+> Detection logic is also included in `wifideauth.py`.
+
+### ▶️ Run the Script
 ```bash
 sudo python detection.py
+```
+
+---
+
+# 🧭 Workflow
+
+1. Choose a wireless interface from the list.
+2. The script places it into monitor mode.
+3. It begins sniffing for Dot11Deauth packets.
+4. After 30 detections, a warning is displayed.
+5. The interface is restored to managed mode.
+
+---
+
+# 🧠 Features
+
+- Automatic interface detection and channel management
+- Deauthentication packet injection using Scapy
+- Live MAC vendor identification using `mac-vendor-lookup`
+- Deauthentication detection with real-time alerts
+- Error handling for interface management (monitor ↔ managed)
+
+---
+
+# 🔄 Flowchart
+
+Here’s a visual representation of how the tool works:
+
+```
+                    ┌───────────────────────┐
+                    │   Start the Script    │
+                    └──────────┬────────────┘
+                               │
+                     Select Wireless Interface
+                               │
+                  ┌───────────▼────────────┐
+                  │  Switch to Monitor Mode│
+                  └───────────┬────────────┘
+                               │
+        ┌──────────────────────┴──────────────────────┐
+        │                                             │
+┌───────▼────────┐                         ┌──────────▼─────────┐
+│ Scan Networks  │                         │   Sniff for        │
+│ and Clients    │                         │ Deauth Packets     │
+└──────┬─────────┘                         └──────────┬─────────┘
+       │                                             │
+       ▼                                             ▼
+ [Launch Deauth]                             [Count Packets ≥ 30?]
+       │                                             │
+       ▼                                             ▼
+[Inject Deauth Frames]                      [Display Alert if Yes]
+       │                                             │
+       ▼                                             ▼
+[Return to Managed Mode] <─────────────── [Return to Managed Mode]
+```
+
+---
+
+# 🛑 Disclaimer
+
+This software is intended solely for:
+
+- Educational use
+- Research
+- Authorized penetration testing
+
+⚠️ **Misuse is illegal and may violate network policies or local laws.**  
+You are fully responsible for your actions.
