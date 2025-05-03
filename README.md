@@ -27,12 +27,6 @@ This project includes two Python scripts for Wi-Fi network security testing:
 - **Privileges**: Requires root access
 - **Hardware**: Wireless adapter that supports **monitor mode**
 
-### 📦 Python Dependencies
-
-Install the required Python packages:
-
-```bash
-pip install scapy mac-vendor-lookup
 ## 🛠 Setup & Usage
 
 ### 1️⃣ Deauthentication Tool — `wifideauth.py`
@@ -47,33 +41,19 @@ Option	Description
 -v	Enable verbose mode
 -h, --help	Show help message
 -c, --channel	Set the Wi-Fi channel to scan/attack
--a, --attack	Set to * for all clients or specify target MAC address
+-a, --attack	Set to * for all clients or specify a target MAC address
 📌 Examples
 Scan for clients on channel 6:
-
-bash
-Copy
-Edit
 sudo python wifideauth.py -c 6
 Deauth all clients on channel 8:
-
-bash
-Copy
-Edit
 sudo python wifideauth.py -c 8 -a *
 Deauth a specific client:
-
-bash
-Copy
-Edit
 sudo python wifideauth.py -c 11 -a 2C:D0:66:A3:6E:39
 2️⃣ Deauthentication Detection — detection.py
 (Detection logic is also included in wifideauth.py.)
 
 ▶️ Run the Script
-bash
-Copy
-Edit
+
 sudo python detection.py
 🧭 Workflow
 Choose a wireless interface from the list.
@@ -84,7 +64,7 @@ It begins sniffing for Dot11Deauth packets.
 
 After 30 detections, a warning is displayed.
 
-Interface is reset to managed mode.
+Interface is restored to managed mode.
 
 🧠 Features
 Automatic interface detection and channel management
@@ -98,11 +78,7 @@ Deauthentication detection with real-time alerts
 Error handling for interface management (monitor ↔ managed)
 
 🔄 Flowchart
-Here’s a visual representation of how the tool works:
 
-mathematica
-Copy
-Edit
                     ┌───────────────────────┐
                     │   Start the Script    │
                     └──────────┬────────────┘
@@ -128,15 +104,3 @@ Edit
        │                                             │
        ▼                                             ▼
 [Return to Managed Mode] <─────────────── [Return to Managed Mode]
-🛑 Disclaimer
-This software is intended solely for:
-
-Educational use
-
-Research
-
-Authorized penetration testing
-
-⚠️ Misuse is illegal and may violate network policies or local laws.
-You are fully responsible for your actions.
-
