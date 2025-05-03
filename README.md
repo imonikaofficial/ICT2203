@@ -39,3 +39,10 @@ Option | Description
 -h, --help | Show help message
 -c, --channel | Set the Wi-Fi channel to scan/attack
 -a, --attack | Set to * for all clients or specify a target MAC address
+📌 Examples
+Scan for clients on channel 6:
+sudo python wifideauth.py -c 6
+Deauth all clients on channel 8:
+sudo python wifideauth.py -c 8 -a *
+Deauth a specific client:
+sudo python wifideauth.py -c 11 -a 2C:D0:66:A3:6E:39
