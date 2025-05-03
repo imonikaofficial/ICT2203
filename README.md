@@ -46,3 +46,8 @@ Deauth all clients on channel 8:
 sudo python wifideauth.py -c 8 -a *
 Deauth a specific client:
 sudo python wifideauth.py -c 11 -a 2C:D0:66:A3:6E:39
+# 2️⃣ Deauthentication Detection — detection.py
+Detection logic is also included in wifideauth.py.
+#▶️ Run the Script
+```bash
+sudo python detection.py
