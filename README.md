@@ -9,10 +9,8 @@ detection.py — Detect ongoing deauthentication attacks against a wireless netw
 This tool is intended only for educational and authorized security testing. Performing deauthentication attacks on networks without explicit permission is illegal and unethical.
 
 📁 Files
-
-File	Description
-wifideauth.py	Wi-Fi scanner and deauthentication attack tool
-detection.py	Sniffer for detecting deauthentication attacks
+wifideauth.py:	Wi-Fi scanner and deauthentication attack tool
+detection.py:	Sniffer for detecting deauthentication attacks
 
 🔧 Requirements
 Operating System: Linux (Kali, Ubuntu, or any with wireless support)
@@ -25,8 +23,8 @@ Hardware: Wireless adapter that supports monitor mode
 
 📦 Python Dependencies
 Install dependencies with:
-
 pip install scapy mac-vendor-lookup
+
 🛠 Setup & Usage
 1️⃣ Deauthentication Tool (wifideauth.py)
 ✅ Basic Usage
