@@ -1,80 +1,142 @@
-📡 Wi-Fi Deauthentication Attack & Detection Tool
-This project provides two Python scripts:
+# 📡 Wi-Fi Deauthentication Attack & Detection Tool
 
-wifideauth.py — Scan for Wi-Fi access points and optionally launch deauthentication attacks.
+This project includes two Python scripts for Wi-Fi network security testing:
 
-detection.py — Detect ongoing deauthentication attacks against a wireless network.
+- **`wifideauth.py`** — Scan nearby Wi-Fi access points and optionally launch deauthentication attacks.
+- **`detection.py`** — Monitor and detect deauthentication attacks in real time.
 
-⚠️ Legal Notice
-This tool is intended only for educational and authorized security testing. Performing deauthentication attacks on networks without explicit permission is illegal and unethical.
+> ⚠️ **Legal Notice**  
+> This tool is intended **only for educational and authorized security testing**.  
+> Performing deauthentication attacks on networks without **explicit permission** is **illegal** and **unethical**.
 
-📁 Files
-wifideauth.py:	Wi-Fi scanner and deauthentication attack tool
-detection.py:	Sniffer for detecting deauthentication attacks
+---
 
-🔧 Requirements
-Operating System: Linux (Kali, Ubuntu, or any with wireless support)
+## 📁 Files
 
-Python: Version 3.x
+| File            | Description                                                  |
+|-----------------|--------------------------------------------------------------|
+| `wifideauth.py` | Wi-Fi scanner and deauthentication attack tool               |
+| `detection.py`  | Sniffer to detect ongoing deauthentication attacks           |
 
-Privileges: Root access required
+---
 
-Hardware: Wireless adapter that supports monitor mode
+## 🔧 Requirements
 
-📦 Python Dependencies
-Install dependencies with:
+- **OS**: Linux (Kali, Ubuntu, or other with wireless support)
+- **Python**: Version 3.x
+- **Privileges**: Requires root access
+- **Hardware**: Wireless adapter that supports **monitor mode**
+
+### 📦 Python Dependencies
+
+Install the required Python packages:
+
+```bash
 pip install scapy mac-vendor-lookup
+## 🛠 Setup & Usage
 
-🛠 Setup & Usage
-1️⃣ Deauthentication Tool (wifideauth.py)
-✅ Basic Usage
+### 1️⃣ Deauthentication Tool — `wifideauth.py`
 
+#### ✅ Basic Syntax
+
+```bash
 sudo python wifideauth.py -c <channel> -a <target>
 📄 Arguments
 
 Option	Description
--v	Verbose mode
+-v	Enable verbose mode
 -h, --help	Show help message
--c, --channel	Set the Wi-Fi channel to monitor
--a, --attack	Set to * for all clients or specify a MAC address
+-c, --channel	Set the Wi-Fi channel to scan/attack
+-a, --attack	Set to * for all clients or specify target MAC address
 📌 Examples
-Scan clients on channel 6:
+Scan for clients on channel 6:
+
+bash
+Copy
+Edit
 sudo python wifideauth.py -c 6
-Attack all clients on channel 8:
+Deauth all clients on channel 8:
+
+bash
+Copy
+Edit
 sudo python wifideauth.py -c 8 -a *
-Attack a specific MAC address on channel 11:
+Deauth a specific client:
+
+bash
+Copy
+Edit
 sudo python wifideauth.py -c 11 -a 2C:D0:66:A3:6E:39
-2️⃣ Deauthentication Detection (detection.py)
-This functionality is also embedded in wifideauth.py.
+2️⃣ Deauthentication Detection — detection.py
+(Detection logic is also included in wifideauth.py.)
 
 ▶️ Run the Script
+bash
+Copy
+Edit
 sudo python detection.py
 🧭 Workflow
-Choose your wireless interface.
+Choose a wireless interface from the list.
 
-Put the interface in monitor mode.
+The script places it into monitor mode.
 
-The script will sniff for Dot11Deauth packets.
+It begins sniffing for Dot11Deauth packets.
 
-Upon detecting 30 deauth packets, you'll receive a warning.
+After 30 detections, a warning is displayed.
 
-The interface is restored to managed mode after detection.
+Interface is reset to managed mode.
 
 🧠 Features
-Automatic interface selection
+Automatic interface detection and channel management
 
-Monitor mode and managed mode switching
+Deauthentication packet injection using Scapy
 
-Deauthentication packet injection (attack mode)
+Live MAC vendor identification using mac-vendor-lookup
 
-Real-time deauthentication detection and alerting
+Deauthentication detection with real-time alerts
 
-MAC vendor lookup for clarity in logs
+Error handling for interface management (monitor ↔ managed)
 
-Robust error handling and recovery for interface issues
+🔄 Flowchart
+Here’s a visual representation of how the tool works:
 
+mathematica
+Copy
+Edit
+                    ┌───────────────────────┐
+                    │   Start the Script    │
+                    └──────────┬────────────┘
+                               │
+                     Select Wireless Interface
+                               │
+                  ┌───────────▼────────────┐
+                  │  Switch to Monitor Mode│
+                  └───────────┬────────────┘
+                               │
+        ┌──────────────────────┴──────────────────────┐
+        │                                             │
+┌───────▼────────┐                         ┌──────────▼─────────┐
+│ Scan Networks  │                         │   Sniff for        │
+│ and Clients    │                         │ Deauth Packets     │
+└──────┬─────────┘                         └──────────┬─────────┘
+       │                                             │
+       ▼                                             ▼
+ [Launch Deauth]                             [Count Packets ≥ 30?]
+       │                                             │
+       ▼                                             ▼
+[Inject Deauth Frames]                      [Display Alert if Yes]
+       │                                             │
+       ▼                                             ▼
+[Return to Managed Mode] <─────────────── [Return to Managed Mode]
 🛑 Disclaimer
-This software is intended solely for educational, research, and authorized penetration testing purposes.
-Misuse of this tool may result in violations of local laws and organizational policies.
-You are responsible for your actions.
+This software is intended solely for:
+
+Educational use
+
+Research
+
+Authorized penetration testing
+
+⚠️ Misuse is illegal and may violate network policies or local laws.
+You are fully responsible for your actions.
 
